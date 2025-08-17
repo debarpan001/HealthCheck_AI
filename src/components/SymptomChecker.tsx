@@ -36,14 +36,120 @@ const SymptomChecker: React.FC = () => {
 
   // Mock data - in real app, this would come from APIs
   const symptomSuggestions = [
+    // Neurological Symptoms
     { id: '1', name: 'Headache', severity: 'mild' as const },
-    { id: '2', name: 'Fever', severity: 'moderate' as const },
-    { id: '3', name: 'Chest pain', severity: 'severe' as const },
-    { id: '4', name: 'Cough', severity: 'mild' as const },
-    { id: '5', name: 'Nausea', severity: 'moderate' as const },
-    { id: '6', name: 'Dizziness', severity: 'moderate' as const },
-    { id: '7', name: 'Shortness of breath', severity: 'severe' as const },
-    { id: '8', name: 'Fatigue', severity: 'mild' as const },
+    { id: '2', name: 'Migraine', severity: 'moderate' as const },
+    { id: '3', name: 'Dizziness', severity: 'moderate' as const },
+    { id: '4', name: 'Memory loss', severity: 'moderate' as const },
+    { id: '5', name: 'Confusion', severity: 'moderate' as const },
+    { id: '6', name: 'Seizures', severity: 'severe' as const },
+    { id: '7', name: 'Numbness in limbs', severity: 'moderate' as const },
+    { id: '8', name: 'Tremors', severity: 'moderate' as const },
+    { id: '9', name: 'Loss of coordination', severity: 'severe' as const },
+    { id: '10', name: 'Blurred vision', severity: 'moderate' as const },
+    
+    // Respiratory Symptoms
+    { id: '11', name: 'Cough', severity: 'mild' as const },
+    { id: '12', name: 'Shortness of breath', severity: 'severe' as const },
+    { id: '13', name: 'Wheezing', severity: 'moderate' as const },
+    { id: '14', name: 'Chest tightness', severity: 'moderate' as const },
+    { id: '15', name: 'Coughing up blood', severity: 'severe' as const },
+    { id: '16', name: 'Sore throat', severity: 'mild' as const },
+    { id: '17', name: 'Runny nose', severity: 'mild' as const },
+    { id: '18', name: 'Sneezing', severity: 'mild' as const },
+    { id: '19', name: 'Hoarse voice', severity: 'mild' as const },
+    { id: '20', name: 'Difficulty swallowing', severity: 'moderate' as const },
+    
+    // Cardiovascular Symptoms
+    { id: '21', name: 'Chest pain', severity: 'severe' as const },
+    { id: '22', name: 'Heart palpitations', severity: 'moderate' as const },
+    { id: '23', name: 'Rapid heartbeat', severity: 'moderate' as const },
+    { id: '24', name: 'Irregular heartbeat', severity: 'moderate' as const },
+    { id: '25', name: 'Swelling in legs', severity: 'moderate' as const },
+    { id: '26', name: 'High blood pressure', severity: 'moderate' as const },
+    { id: '27', name: 'Low blood pressure', severity: 'moderate' as const },
+    { id: '28', name: 'Cold hands and feet', severity: 'mild' as const },
+    
+    // Gastrointestinal Symptoms
+    { id: '29', name: 'Nausea', severity: 'moderate' as const },
+    { id: '30', name: 'Vomiting', severity: 'moderate' as const },
+    { id: '31', name: 'Diarrhea', severity: 'moderate' as const },
+    { id: '32', name: 'Constipation', severity: 'mild' as const },
+    { id: '33', name: 'Abdominal pain', severity: 'moderate' as const },
+    { id: '34', name: 'Bloating', severity: 'mild' as const },
+    { id: '35', name: 'Loss of appetite', severity: 'moderate' as const },
+    { id: '36', name: 'Heartburn', severity: 'mild' as const },
+    { id: '37', name: 'Blood in stool', severity: 'severe' as const },
+    { id: '38', name: 'Black stool', severity: 'severe' as const },
+    { id: '39', name: 'Excessive gas', severity: 'mild' as const },
+    { id: '40', name: 'Acid reflux', severity: 'mild' as const },
+    
+    // Musculoskeletal Symptoms
+    { id: '41', name: 'Joint pain', severity: 'moderate' as const },
+    { id: '42', name: 'Muscle pain', severity: 'mild' as const },
+    { id: '43', name: 'Back pain', severity: 'moderate' as const },
+    { id: '44', name: 'Neck pain', severity: 'moderate' as const },
+    { id: '45', name: 'Stiffness', severity: 'mild' as const },
+    { id: '46', name: 'Swollen joints', severity: 'moderate' as const },
+    { id: '47', name: 'Muscle weakness', severity: 'moderate' as const },
+    { id: '48', name: 'Muscle cramps', severity: 'mild' as const },
+    { id: '49', name: 'Bone pain', severity: 'moderate' as const },
+    
+    // General/Constitutional Symptoms
+    { id: '50', name: 'Fever', severity: 'moderate' as const },
+    { id: '51', name: 'Chills', severity: 'moderate' as const },
+    { id: '52', name: 'Fatigue', severity: 'mild' as const },
+    { id: '53', name: 'Weakness', severity: 'moderate' as const },
+    { id: '54', name: 'Weight loss', severity: 'moderate' as const },
+    { id: '55', name: 'Weight gain', severity: 'moderate' as const },
+    { id: '56', name: 'Night sweats', severity: 'moderate' as const },
+    { id: '57', name: 'Excessive sweating', severity: 'mild' as const },
+    { id: '58', name: 'Sleep problems', severity: 'mild' as const },
+    { id: '59', name: 'Loss of consciousness', severity: 'severe' as const },
+    
+    // Skin Symptoms
+    { id: '60', name: 'Rash', severity: 'mild' as const },
+    { id: '61', name: 'Itching', severity: 'mild' as const },
+    { id: '62', name: 'Dry skin', severity: 'mild' as const },
+    { id: '63', name: 'Skin discoloration', severity: 'moderate' as const },
+    { id: '64', name: 'Bruising', severity: 'moderate' as const },
+    { id: '65', name: 'Unusual moles', severity: 'moderate' as const },
+    { id: '66', name: 'Hair loss', severity: 'mild' as const },
+    { id: '67', name: 'Nail changes', severity: 'mild' as const },
+    
+    // Urinary/Reproductive Symptoms
+    { id: '68', name: 'Frequent urination', severity: 'moderate' as const },
+    { id: '69', name: 'Painful urination', severity: 'moderate' as const },
+    { id: '70', name: 'Blood in urine', severity: 'severe' as const },
+    { id: '71', name: 'Difficulty urinating', severity: 'moderate' as const },
+    { id: '72', name: 'Pelvic pain', severity: 'moderate' as const },
+    { id: '73', name: 'Irregular periods', severity: 'moderate' as const },
+    { id: '74', name: 'Heavy menstrual bleeding', severity: 'moderate' as const },
+    
+    // Mental Health Symptoms
+    { id: '75', name: 'Anxiety', severity: 'moderate' as const },
+    { id: '76', name: 'Depression', severity: 'moderate' as const },
+    { id: '77', name: 'Mood swings', severity: 'mild' as const },
+    { id: '78', name: 'Irritability', severity: 'mild' as const },
+    { id: '79', name: 'Panic attacks', severity: 'moderate' as const },
+    { id: '80', name: 'Difficulty concentrating', severity: 'mild' as const },
+    
+    // Eye/Ear/Nose/Throat Symptoms
+    { id: '81', name: 'Eye pain', severity: 'moderate' as const },
+    { id: '82', name: 'Red eyes', severity: 'mild' as const },
+    { id: '83', name: 'Ear pain', severity: 'moderate' as const },
+    { id: '84', name: 'Hearing loss', severity: 'moderate' as const },
+    { id: '85', name: 'Ringing in ears', severity: 'mild' as const },
+    { id: '86', name: 'Nasal congestion', severity: 'mild' as const },
+    { id: '87', name: 'Loss of smell', severity: 'moderate' as const },
+    { id: '88', name: 'Loss of taste', severity: 'moderate' as const },
+    
+    // Endocrine Symptoms
+    { id: '89', name: 'Excessive thirst', severity: 'moderate' as const },
+    { id: '90', name: 'Excessive hunger', severity: 'moderate' as const },
+    { id: '91', name: 'Heat intolerance', severity: 'mild' as const },
+    { id: '92', name: 'Cold intolerance', severity: 'mild' as const },
+    { id: '93', name: 'Changes in appetite', severity: 'mild' as const },
   ];
 
   const mockDoctors: Doctor[] = [
@@ -94,29 +200,8 @@ const SymptomChecker: React.FC = () => {
     setCurrentStep('analysis');
     // Simulate AI analysis
     setTimeout(() => {
-      const mockResults: Condition[] = [
-        {
-          name: 'Common Cold',
-          confidence: 85,
-          severity: 'low',
-          description: 'Viral upper respiratory tract infection',
-          recommendations: ['Rest and hydration', 'Over-the-counter pain relievers', 'Monitor symptoms']
-        },
-        {
-          name: 'Influenza',
-          confidence: 60,
-          severity: 'medium',
-          description: 'Seasonal flu virus infection',
-          recommendations: ['Antiviral medication', 'Complete rest', 'See healthcare provider if symptoms worsen']
-        },
-        {
-          name: 'Sinusitis',
-          confidence: 45,
-          severity: 'medium',
-          description: 'Inflammation of the sinus cavities',
-          recommendations: ['Nasal decongestants', 'Warm compresses', 'Consider antibiotic consultation']
-        }
-      ];
+      // Enhanced AI analysis based on selected symptoms
+      const mockResults: Condition[] = generateDiagnosisResults(selectedSymptoms);
       setAnalysisResults(mockResults);
       setCurrentStep('results');
     }, 3000);
@@ -131,6 +216,210 @@ const SymptomChecker: React.FC = () => {
     }
   };
 
+  // Enhanced AI diagnosis generator based on symptoms
+  const generateDiagnosisResults = (symptoms: Symptom[]): Condition[] => {
+    const symptomNames = symptoms.map(s => s.name.toLowerCase());
+    const hasHighSeverity = symptoms.some(s => s.severity === 'severe');
+    const hasModerateSeverity = symptoms.some(s => s.severity === 'moderate');
+    
+    let possibleConditions: Condition[] = [];
+    
+    // Respiratory conditions
+    if (symptomNames.some(s => ['cough', 'shortness of breath', 'chest tightness', 'wheezing'].includes(s))) {
+      if (symptomNames.includes('shortness of breath') || symptomNames.includes('chest pain')) {
+        possibleConditions.push({
+          name: 'Asthma',
+          confidence: 75,
+          severity: 'medium',
+          description: 'Chronic respiratory condition causing airway inflammation',
+          recommendations: ['Use prescribed inhaler', 'Avoid triggers', 'Seek immediate care if severe']
+        });
+      }
+      if (symptomNames.includes('fever') || symptomNames.includes('cough')) {
+        possibleConditions.push({
+          name: 'Pneumonia',
+          confidence: 65,
+          severity: hasHighSeverity ? 'high' : 'medium',
+          description: 'Infection that inflames air sacs in lungs',
+          recommendations: ['Seek medical attention', 'Rest and hydration', 'Complete prescribed antibiotics']
+        });
+      }
+    }
+    
+    // Cardiovascular conditions
+    if (symptomNames.some(s => ['chest pain', 'heart palpitations', 'shortness of breath', 'swelling in legs'].includes(s))) {
+      if (symptomNames.includes('chest pain')) {
+        possibleConditions.push({
+          name: 'Angina',
+          confidence: 70,
+          severity: 'high',
+          description: 'Chest pain due to reduced blood flow to heart',
+          recommendations: ['Seek immediate medical attention', 'Rest', 'Take prescribed nitroglycerin if available']
+        });
+      }
+      if (symptomNames.includes('heart palpitations') || symptomNames.includes('rapid heartbeat')) {
+        possibleConditions.push({
+          name: 'Arrhythmia',
+          confidence: 60,
+          severity: 'medium',
+          description: 'Irregular heart rhythm',
+          recommendations: ['Monitor symptoms', 'Avoid caffeine', 'Consult cardiologist']
+        });
+      }
+    }
+    
+    // Gastrointestinal conditions
+    if (symptomNames.some(s => ['nausea', 'vomiting', 'diarrhea', 'abdominal pain'].includes(s))) {
+      if (symptomNames.includes('diarrhea') && symptomNames.includes('vomiting')) {
+        possibleConditions.push({
+          name: 'Gastroenteritis',
+          confidence: 80,
+          severity: 'medium',
+          description: 'Inflammation of stomach and intestines',
+          recommendations: ['Stay hydrated', 'BRAT diet', 'Rest', 'Seek care if dehydration occurs']
+        });
+      }
+      if (symptomNames.includes('abdominal pain') && symptomNames.includes('nausea')) {
+        possibleConditions.push({
+          name: 'Appendicitis',
+          confidence: 55,
+          severity: 'high',
+          description: 'Inflammation of the appendix',
+          recommendations: ['Seek immediate medical attention', 'Do not eat or drink', 'Go to emergency room']
+        });
+      }
+    }
+    
+    // Neurological conditions
+    if (symptomNames.some(s => ['headache', 'dizziness', 'confusion', 'memory loss'].includes(s))) {
+      if (symptomNames.includes('headache') && symptomNames.includes('fever')) {
+        possibleConditions.push({
+          name: 'Meningitis',
+          confidence: 45,
+          severity: 'high',
+          description: 'Inflammation of protective membranes covering brain and spinal cord',
+          recommendations: ['Seek immediate emergency care', 'Do not delay treatment', 'Call 112']
+        });
+      }
+      if (symptomNames.includes('migraine') || (symptomNames.includes('headache') && symptomNames.includes('nausea'))) {
+        possibleConditions.push({
+          name: 'Migraine',
+          confidence: 85,
+          severity: 'medium',
+          description: 'Severe headache often with nausea and light sensitivity',
+          recommendations: ['Rest in dark room', 'Apply cold compress', 'Take prescribed medication']
+        });
+      }
+    }
+    
+    // Infectious diseases
+    if (symptomNames.includes('fever')) {
+      if (symptomNames.some(s => ['cough', 'sore throat', 'runny nose'].includes(s))) {
+        possibleConditions.push({
+          name: 'Common Cold',
+          confidence: 90,
+          severity: 'low',
+          description: 'Viral upper respiratory tract infection',
+          recommendations: ['Rest and hydration', 'Over-the-counter pain relievers', 'Monitor symptoms']
+        });
+      }
+      if (symptomNames.some(s => ['muscle pain', 'fatigue', 'chills'].includes(s))) {
+        possibleConditions.push({
+          name: 'Influenza',
+          confidence: 75,
+          severity: 'medium',
+          description: 'Seasonal flu virus infection',
+          recommendations: ['Antiviral medication within 48 hours', 'Complete rest', 'Increase fluid intake']
+        });
+      }
+    }
+    
+    // Musculoskeletal conditions
+    if (symptomNames.some(s => ['joint pain', 'muscle pain', 'stiffness', 'swollen joints'].includes(s))) {
+      if (symptomNames.includes('joint pain') && symptomNames.includes('stiffness')) {
+        possibleConditions.push({
+          name: 'Arthritis',
+          confidence: 70,
+          severity: 'medium',
+          description: 'Inflammation of joints causing pain and stiffness',
+          recommendations: ['Anti-inflammatory medication', 'Gentle exercise', 'Heat/cold therapy']
+        });
+      }
+      if (symptomNames.includes('muscle pain') && symptomNames.includes('fatigue')) {
+        possibleConditions.push({
+          name: 'Fibromyalgia',
+          confidence: 55,
+          severity: 'medium',
+          description: 'Chronic condition causing widespread muscle pain',
+          recommendations: ['Regular exercise', 'Stress management', 'Sleep hygiene', 'Pain management']
+        });
+      }
+    }
+    
+    // Mental health conditions
+    if (symptomNames.some(s => ['anxiety', 'depression', 'panic attacks', 'mood swings'].includes(s))) {
+      if (symptomNames.includes('anxiety') || symptomNames.includes('panic attacks')) {
+        possibleConditions.push({
+          name: 'Anxiety Disorder',
+          confidence: 80,
+          severity: 'medium',
+          description: 'Mental health condition characterized by excessive worry',
+          recommendations: ['Breathing exercises', 'Professional counseling', 'Stress reduction techniques']
+        });
+      }
+      if (symptomNames.includes('depression') || symptomNames.includes('mood swings')) {
+        possibleConditions.push({
+          name: 'Depression',
+          confidence: 75,
+          severity: 'medium',
+          description: 'Mental health disorder causing persistent sadness',
+          recommendations: ['Professional therapy', 'Support groups', 'Regular exercise', 'Medication if needed']
+        });
+      }
+    }
+    
+    // Endocrine conditions
+    if (symptomNames.some(s => ['excessive thirst', 'frequent urination', 'weight loss', 'fatigue'].includes(s))) {
+      if (symptomNames.includes('excessive thirst') && symptomNames.includes('frequent urination')) {
+        possibleConditions.push({
+          name: 'Diabetes',
+          confidence: 70,
+          severity: 'medium',
+          description: 'Condition affecting blood sugar regulation',
+          recommendations: ['Blood sugar testing', 'Dietary changes', 'Medical evaluation', 'Regular monitoring']
+        });
+      }
+    }
+    
+    // Skin conditions
+    if (symptomNames.some(s => ['rash', 'itching', 'skin discoloration'].includes(s))) {
+      if (symptomNames.includes('rash') && symptomNames.includes('itching')) {
+        possibleConditions.push({
+          name: 'Eczema',
+          confidence: 65,
+          severity: 'low',
+          description: 'Chronic skin condition causing inflammation and itching',
+          recommendations: ['Moisturize regularly', 'Avoid triggers', 'Topical treatments', 'Dermatologist consultation']
+        });
+      }
+    }
+    
+    // Default fallback conditions if no specific matches
+    if (possibleConditions.length === 0) {
+      possibleConditions.push({
+        name: 'General Malaise',
+        confidence: 60,
+        severity: hasModerateSeverity ? 'medium' : 'low',
+        description: 'General feeling of discomfort or illness',
+        recommendations: ['Rest and hydration', 'Monitor symptoms', 'Consult healthcare provider if symptoms persist']
+      });
+    }
+    
+    // Sort by confidence and return top 3
+    return possibleConditions
+      .sort((a, b) => b.confidence - a.confidence)
+      .slice(0, 3);
+  };
   const getUrgencyRecommendation = () => {
     const highSeveritySymptoms = selectedSymptoms.filter(s => s.severity === 'severe').length;
     const topCondition = analysisResults[0];
@@ -180,11 +469,11 @@ const SymptomChecker: React.FC = () => {
               type="text"
               value={symptomInput}
               onChange={(e) => setSymptomInput(e.target.value)}
-              placeholder="Type a symptom (e.g., headache, fever, cough)"
+              placeholder="Type a symptom (e.g., headache, chest pain, nausea, joint pain)"
               className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none text-lg bg-gray-50 focus:bg-white transition-all duration-200 shadow-sm"
             />
             {filteredSuggestions.length > 0 && symptomInput && (
-              <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-2xl shadow-2xl max-h-60 overflow-y-auto">
+              <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-2xl shadow-2xl max-h-80 overflow-y-auto">
                 {filteredSuggestions.map((symptom) => (
                   <button
                     key={symptom.id}
@@ -234,7 +523,7 @@ const SymptomChecker: React.FC = () => {
               <AlertCircle className="w-6 h-6 text-blue-600 mt-0.5 mr-4 flex-shrink-0" />
               <div className="text-sm text-blue-900">
                 <p className="font-bold mb-2 text-base">Important Notice</p>
-                <p className="leading-relaxed">This tool provides educational information only and is not a substitute for professional medical advice. Always consult healthcare providers for medical concerns.</p>
+                <p className="leading-relaxed">This AI-powered tool analyzes 90+ symptoms to predict possible conditions. It provides educational information only and is not a substitute for professional medical advice. Always consult healthcare providers for medical concerns.</p>
               </div>
             </div>
           </div>
