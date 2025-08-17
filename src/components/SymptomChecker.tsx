@@ -26,13 +26,24 @@ interface Doctor {
   availableSlots: string[];
 }
 
+interface Disease {
+  name: string;
+  symptoms: string[];
+  generalMedicines: string[];
+  description: string;
+  severity: 'mild' | 'moderate' | 'severe';
+  whenToSeeDoctor: string;
+}
+
 const SymptomChecker: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState<'input' | 'analysis' | 'results' | 'doctors' | 'booking'>('input');
+  const [currentStep, setCurrentStep] = useState<'input' | 'analysis' | 'results' | 'doctors' | 'booking' | 'disease-lookup'>('input');
   const [selectedSymptoms, setSelectedSymptoms] = useState<Symptom[]>([]);
   const [symptomInput, setSymptomInput] = useState('');
   const [analysisResults, setAnalysisResults] = useState<Condition[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [bookingData, setBookingData] = useState({ date: '', time: '', notes: '' });
+  const [diseaseInput, setDiseaseInput] = useState('');
+  const [selectedDisease, setSelectedDisease] = useState<Disease | null>(null);
 
   // Mock data - in real app, this would come from APIs
   const symptomSuggestions = [
@@ -184,6 +195,140 @@ const SymptomChecker: React.FC = () => {
       availableSlots: ['8:30 AM', '12:00 PM', '2:30 PM', '4:00 PM']
     }
   ];
+
+  // Disease database with symptoms and general medicines
+  const diseaseDatabase: Disease[] = [
+    {
+      name: 'Common Cold',
+      symptoms: ['Runny nose', 'Sneezing', 'Sore throat', 'Cough', 'Mild headache', 'Low-grade fever', 'Fatigue'],
+      generalMedicines: ['Paracetamol', 'Ibuprofen', 'Throat lozenges', 'Decongestants', 'Cough syrup', 'Vitamin C'],
+      description: 'A viral infection of the upper respiratory tract',
+      severity: 'mild',
+      whenToSeeDoctor: 'If symptoms persist for more than 10 days or worsen significantly'
+    },
+    {
+      name: 'Influenza (Flu)',
+      symptoms: ['High fever', 'Chills', 'Muscle aches', 'Fatigue', 'Headache', 'Dry cough', 'Sore throat'],
+      generalMedicines: ['Paracetamol', 'Ibuprofen', 'Antiviral medications (Tamiflu)', 'Throat lozenges', 'Plenty of fluids'],
+      description: 'A viral infection that attacks the respiratory system',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If you have difficulty breathing, persistent chest pain, or high fever for more than 3 days'
+    },
+    {
+      name: 'Migraine',
+      symptoms: ['Severe headache', 'Nausea', 'Vomiting', 'Light sensitivity', 'Sound sensitivity', 'Visual disturbances'],
+      generalMedicines: ['Ibuprofen', 'Paracetamol', 'Aspirin', 'Sumatriptan', 'Anti-nausea medications'],
+      description: 'A neurological condition causing severe headaches',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If headaches become more frequent or severe, or if accompanied by neurological symptoms'
+    },
+    {
+      name: 'Hypertension (High Blood Pressure)',
+      symptoms: ['Headaches', 'Dizziness', 'Blurred vision', 'Chest pain', 'Shortness of breath', 'Nosebleeds'],
+      generalMedicines: ['ACE inhibitors', 'Beta-blockers', 'Diuretics', 'Calcium channel blockers'],
+      description: 'A condition where blood pressure is consistently elevated',
+      severity: 'moderate',
+      whenToSeeDoctor: 'Regular monitoring required; seek immediate care if blood pressure is extremely high'
+    },
+    {
+      name: 'Diabetes Type 2',
+      symptoms: ['Excessive thirst', 'Frequent urination', 'Fatigue', 'Blurred vision', 'Slow healing wounds', 'Weight loss'],
+      generalMedicines: ['Metformin', 'Insulin', 'Sulfonylureas', 'DPP-4 inhibitors'],
+      description: 'A metabolic disorder characterized by high blood sugar levels',
+      severity: 'moderate',
+      whenToSeeDoctor: 'Regular monitoring required; seek care if blood sugar levels are uncontrolled'
+    },
+    {
+      name: 'Asthma',
+      symptoms: ['Shortness of breath', 'Wheezing', 'Chest tightness', 'Coughing', 'Difficulty breathing'],
+      generalMedicines: ['Bronchodilators (Albuterol)', 'Inhaled corticosteroids', 'Leukotriene modifiers'],
+      description: 'A respiratory condition where airways narrow and swell',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If experiencing severe breathing difficulties or frequent attacks'
+    },
+    {
+      name: 'Gastroenteritis',
+      symptoms: ['Diarrhea', 'Vomiting', 'Nausea', 'Abdominal cramps', 'Fever', 'Dehydration'],
+      generalMedicines: ['Oral rehydration salts', 'Loperamide', 'Probiotics', 'Paracetamol for fever'],
+      description: 'Inflammation of the stomach and intestines',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If severe dehydration, blood in stool, or symptoms persist for more than 3 days'
+    },
+    {
+      name: 'Arthritis',
+      symptoms: ['Joint pain', 'Stiffness', 'Swelling', 'Reduced range of motion', 'Warmth around joints'],
+      generalMedicines: ['NSAIDs (Ibuprofen)', 'Topical pain relievers', 'Corticosteroids', 'Disease-modifying drugs'],
+      description: 'Inflammation of one or more joints',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If joint pain is severe or interferes with daily activities'
+    },
+    {
+      name: 'Depression',
+      symptoms: ['Persistent sadness', 'Loss of interest', 'Fatigue', 'Sleep disturbances', 'Appetite changes', 'Difficulty concentrating'],
+      generalMedicines: ['Antidepressants (SSRIs)', 'Therapy', 'Lifestyle changes', 'Support groups'],
+      description: 'A mental health disorder characterized by persistent sadness',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If experiencing thoughts of self-harm or if symptoms interfere with daily life'
+    },
+    {
+      name: 'Anxiety Disorder',
+      symptoms: ['Excessive worry', 'Restlessness', 'Fatigue', 'Difficulty concentrating', 'Muscle tension', 'Sleep problems'],
+      generalMedicines: ['Anti-anxiety medications', 'Beta-blockers', 'Therapy', 'Relaxation techniques'],
+      description: 'A mental health condition characterized by excessive worry',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If anxiety interferes with daily activities or causes panic attacks'
+    },
+    {
+      name: 'Pneumonia',
+      symptoms: ['Cough with phlegm', 'Fever', 'Chills', 'Shortness of breath', 'Chest pain', 'Fatigue'],
+      generalMedicines: ['Antibiotics', 'Pain relievers', 'Cough medicine', 'Fever reducers'],
+      description: 'An infection that inflames air sacs in lungs',
+      severity: 'severe',
+      whenToSeeDoctor: 'Seek immediate medical attention, especially if breathing difficulties occur'
+    },
+    {
+      name: 'Urinary Tract Infection (UTI)',
+      symptoms: ['Burning sensation during urination', 'Frequent urination', 'Cloudy urine', 'Pelvic pain', 'Strong-smelling urine'],
+      generalMedicines: ['Antibiotics', 'Pain relievers', 'Increased fluid intake', 'Cranberry supplements'],
+      description: 'An infection in any part of the urinary system',
+      severity: 'moderate',
+      whenToSeeDoctor: 'If symptoms persist or worsen, or if fever develops'
+    },
+    {
+      name: 'Eczema',
+      symptoms: ['Itchy skin', 'Red patches', 'Dry skin', 'Skin inflammation', 'Cracked skin'],
+      generalMedicines: ['Topical corticosteroids', 'Moisturizers', 'Antihistamines', 'Calcineurin inhibitors'],
+      description: 'A condition that makes skin red and itchy',
+      severity: 'mild',
+      whenToSeeDoctor: 'If symptoms are severe or don\'t respond to over-the-counter treatments'
+    },
+    {
+      name: 'Acid Reflux (GERD)',
+      symptoms: ['Heartburn', 'Acid regurgitation', 'Chest pain', 'Difficulty swallowing', 'Chronic cough'],
+      generalMedicines: ['Antacids', 'H2 blockers', 'Proton pump inhibitors', 'Lifestyle modifications'],
+      description: 'A digestive disorder where stomach acid flows back into the esophagus',
+      severity: 'mild',
+      whenToSeeDoctor: 'If symptoms occur frequently or interfere with daily life'
+    },
+    {
+      name: 'Insomnia',
+      symptoms: ['Difficulty falling asleep', 'Frequent waking', 'Early morning awakening', 'Daytime fatigue', 'Irritability'],
+      generalMedicines: ['Sleep aids', 'Melatonin', 'Relaxation techniques', 'Sleep hygiene practices'],
+      description: 'A sleep disorder characterized by difficulty sleeping',
+      severity: 'mild',
+      whenToSeeDoctor: 'If sleep problems persist for more than a few weeks'
+    }
+  ];
+
+  const searchDisease = (query: string) => {
+    return diseaseDatabase.find(disease => 
+      disease.name.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
+  const filteredDiseases = diseaseDatabase.filter(disease =>
+    disease.name.toLowerCase().includes(diseaseInput.toLowerCase())
+  );
 
   const addSymptom = (symptom: Symptom) => {
     if (!selectedSymptoms.find(s => s.id === symptom.id)) {
@@ -461,6 +606,24 @@ const SymptomChecker: React.FC = () => {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">AI-powered health analysis to guide your care decisions with confidence and precision</p>
         </div>
 
+        {/* Navigation Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-200">
+            <button
+              onClick={() => setCurrentStep('input')}
+              className="px-6 py-3 rounded-xl font-semibold text-blue-600 bg-blue-50 border border-blue-200 mr-2"
+            >
+              Symptom Analysis
+            </button>
+            <button
+              onClick={() => setCurrentStep('disease-lookup')}
+              className="px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition-colors"
+            >
+              Disease Lookup
+            </button>
+          </div>
+        </div>
+
         <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">What symptoms are you experiencing?</h2>
           
@@ -535,6 +698,160 @@ const SymptomChecker: React.FC = () => {
           >
             Analyze Symptoms ({selectedSymptoms.length})
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentStep === 'disease-lookup') {
+    return (
+      <div className="max-w-5xl mx-auto p-6">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl mb-6 shadow-lg">
+            <Search className="w-10 h-10 text-green-600" />
+          </div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">Disease Information Lookup</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Search for any disease to learn about its symptoms and general treatment options</p>
+        </div>
+
+        {/* Navigation Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-200">
+            <button
+              onClick={() => setCurrentStep('input')}
+              className="px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition-colors mr-2"
+            >
+              Symptom Analysis
+            </button>
+            <button
+              onClick={() => setCurrentStep('disease-lookup')}
+              className="px-6 py-3 rounded-xl font-semibold text-green-600 bg-green-50 border border-green-200"
+            >
+              Disease Lookup
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">Search for Disease Information</h2>
+          
+          <div className="relative mb-8">
+            <input
+              type="text"
+              value={diseaseInput}
+              onChange={(e) => setDiseaseInput(e.target.value)}
+              placeholder="Type a disease name (e.g., diabetes, asthma, migraine, depression)"
+              className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-green-500 focus:outline-none text-lg bg-gray-50 focus:bg-white transition-all duration-200 shadow-sm"
+            />
+            {filteredDiseases.length > 0 && diseaseInput && (
+              <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-2xl shadow-2xl max-h-80 overflow-y-auto">
+                {filteredDiseases.map((disease, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedDisease(disease);
+                      setDiseaseInput(disease.name);
+                    }}
+                    className="w-full px-6 py-4 text-left hover:bg-green-50 focus:bg-green-50 focus:outline-none border-b border-gray-100 last:border-b-0 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-900 font-medium">{disease.name}</span>
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        disease.severity === 'mild' ? 'bg-green-100 text-green-800' :
+                        disease.severity === 'moderate' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-red-100 text-red-800'
+                      }`}>
+                        {disease.severity}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">{disease.description}</p>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {selectedDisease && (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedDisease.name}</h3>
+                    <p className="text-lg text-gray-700 leading-relaxed">{selectedDisease.description}</p>
+                  </div>
+                  <span className={`px-4 py-2 rounded-full text-sm font-bold ${
+                    selectedDisease.severity === 'mild' ? 'bg-green-100 text-green-800' :
+                    selectedDisease.severity === 'moderate' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {selectedDisease.severity} condition
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
+                  <h4 className="text-xl font-bold text-blue-900 mb-4 flex items-center">
+                    <AlertCircle className="w-6 h-6 mr-3" />
+                    Common Symptoms
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedDisease.symptoms.map((symptom, index) => (
+                      <li key={index} className="flex items-center text-blue-800">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                        {symptom}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="bg-purple-50 rounded-2xl p-6 border border-purple-100">
+                  <h4 className="text-xl font-bold text-purple-900 mb-4 flex items-center">
+                    <CheckCircle className="w-6 h-6 mr-3" />
+                    General Medicines & Treatments
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedDisease.generalMedicines.map((medicine, index) => (
+                      <li key={index} className="flex items-center text-purple-800">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                        {medicine}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+                <div className="flex items-start">
+                  <AlertCircle className="w-6 h-6 text-amber-600 mt-0.5 mr-4 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-lg font-bold text-amber-900 mb-2">When to See a Doctor</h4>
+                    <p className="text-amber-800 leading-relaxed">{selectedDisease.whenToSeeDoctor}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-6 border border-red-200">
+                <div className="flex items-start">
+                  <AlertCircle className="w-6 h-6 text-red-600 mt-0.5 mr-4 flex-shrink-0" />
+                  <div className="text-sm text-red-900">
+                    <p className="font-bold mb-2 text-base">Medical Disclaimer</p>
+                    <p className="leading-relaxed">This information is for educational purposes only and should not replace professional medical advice. Always consult with qualified healthcare providers for proper diagnosis and treatment. Do not self-medicate based on this information.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {!selectedDisease && diseaseInput && filteredDiseases.length === 0 && (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+                <Search className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Disease Not Found</h3>
+              <p className="text-gray-500">Try searching for a different disease name or check the spelling.</p>
+            </div>
+          )}
         </div>
       </div>
     );
