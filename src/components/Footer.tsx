@@ -29,21 +29,13 @@ const Footer: React.FC = () => {
                 <span>Emergency Services: 112</span>
                 <ExternalLink className="w-4 h-4 ml-2" />
               </a>
-              <a href="tel:988" className="flex items-center text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
-                <span>Crisis Lifeline: 988</span>
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </a>
-              <a href="#" className="flex items-center text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors">
-                <span>Find Emergency Room</span>
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </a>
             </div>
           </div>
         </div>
         
         <div className="border-t border-gray-300 mt-10 pt-8 text-center">
           <p className="text-sm text-gray-600 font-medium">
-            © 2025 HealthCheck AI. Powered by advanced medical AI and integrated telemedicine services.
+            © 2025 HealthCheck AI. Developed by <a href="https://www.linkedin.com/in/debarpan-das-75298a260" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors underline">Debarpan</a>.
           </p>
         </div>
       </div>
