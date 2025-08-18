@@ -44,7 +44,6 @@ const SymptomChecker: React.FC = () => {
   const [bookingData, setBookingData] = useState({ date: '', time: '', notes: '' });
   const [diseaseInput, setDiseaseInput] = useState('');
   const [selectedDisease, setSelectedDisease] = useState<Disease | null>(null);
-  const [showDiseaseDropdown, setShowDiseaseDropdown] = useState(false);
 
   // Mock data - in real app, this would come from APIs
   const symptomSuggestions = [
