@@ -44,6 +44,10 @@ const SymptomChecker: React.FC = () => {
   const [bookingData, setBookingData] = useState({ date: '', time: '', notes: '' });
   const [diseaseInput, setDiseaseInput] = useState('');
   const [selectedDisease, setSelectedDisease] = useState<Disease | null>(null);
+  const [activeTab, setActiveTab] = useState<'symptoms' | 'disease' | 'booking'>('symptoms');
+  const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
+  const [nearbyDoctors, setNearbyDoctors] = useState<any[]>([]);
 
   // Mock data - in real app, this would come from APIs
   const symptomSuggestions = [
