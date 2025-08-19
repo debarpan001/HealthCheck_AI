@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, AlertCircle, CheckCircle, MapPin, Calendar, Phone, User, Clock, Star } from 'lucide-react';
+import { Search, Activity, AlertTriangle, CheckCircle, Clock, Star, User, MapPin, Phone, Calendar } from 'lucide-react';
 
 interface Symptom {
   id: string;
