@@ -28,10 +28,6 @@ const Header: React.FC = () => {
               <span>Emergency: 112</span>
             </div>
           </div>
-          
-          <button className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-            <Menu className="w-6 h-6 text-gray-600" />
-          </button>
         </div>
       </div>
     </header>
