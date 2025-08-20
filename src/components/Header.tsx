@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Shield, Phone, Menu } from 'lucide-react';
+import { Heart, Shield, Phone } from 'lucide-react';
 
 const Header: React.FC = () => {
   return (
