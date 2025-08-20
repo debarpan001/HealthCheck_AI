@@ -26,13 +26,6 @@
 - **Frameworks**: (e.g., *Flask* for the backend, *Streamlit* or *React* for UI)
 - **Modeling**: (e.g., *scikit-learn*, *TensorFlow*) trained using (mention dataset source or methodology)
 - **Styling**: Clean, responsive UI using (e.g., *Bootstrap*, *Tailwind CSS*)
-- **Deployment**: Ready for platforms like *Heroku*, *Vercel*, or *Firebase Hosting*
+- **Deployment**:  *Vercel*
 
----
 
-##  Get Started in a Flash
-
-```bash
-git clone https://github.com/debarpan001/HealthCheck_AI.git
-cd HealthCheck_AI
-pip install -r requirements.txt
