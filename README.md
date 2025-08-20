@@ -5,7 +5,7 @@
 
 ##  Why HealthCheck _AI?
 
--  **Instant Health Insights** – Get predictions and health assessments with just a few inputs.
+-  **Instant Health Insights** – Get predictions and health info with just a few inputs.
 -  **Smart & Intuitive** – AI-driven recommendations tailored to your symptoms.
 -  **Built for You** – Designed with real users in mind—clean, smooth, and stress-free.
 
