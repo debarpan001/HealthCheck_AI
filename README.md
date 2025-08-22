@@ -23,9 +23,8 @@
 
 ##  Tech Stack & Tools
 
-- **Frameworks**: (e.g., *Flask* for the backend, *Streamlit* or *React* for UI)
-- **Modeling**: (e.g., *scikit-learn*, *TensorFlow*) trained using (mention dataset source or methodology)
-- **Styling**: Clean, responsive UI using (e.g., *Bootstrap*, *Tailwind CSS*)
+- **Frameworks**: *React* 
+- **Styling**: Clean, responsive UI using *Tailwind CSS*
 - **Deployment**:  *Vercel*
 
 
